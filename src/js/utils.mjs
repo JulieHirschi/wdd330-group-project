@@ -23,13 +23,13 @@ export function setClick(selector, callback) {
 }
 // Append to local storage
 export function appendToValueInLocalStorage(key, data) {
-  var existingVal = localSoragegetItem(key);
+  var existingVal = localStorage.getItem(key);
   if (existingVal == null) existingVal = '';
   else {
     existingVal = existingVal.substring(1, existingVal.length - 1);
   }
 
-  var newVal = `${existingVal},${JSON.strigify(data)}`;
+  var newVal = `${existingVal},${JSON.stringify(data)}`;
 
   if (newVal.startsWith(',')) newVal = newVal.substring(1, newVal.length);
   localStorage.setItem(key, `[${newVal}]`);
