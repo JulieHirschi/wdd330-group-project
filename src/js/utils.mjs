@@ -35,3 +35,10 @@ export function appendToValueInLocalStorage(key, data) {
   localStorage.setItem(key, `[${newVal}]`);
   
 }
+
+export function getParam(param = 'product') {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(param);
+  return product;
+}
