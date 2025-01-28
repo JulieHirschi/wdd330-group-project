@@ -15,11 +15,11 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
+  qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
     callback();
   });
-  qs(selector).addEventListener("click", callback);
+  qs(selector).addEventListener('click', callback);
 }
 // Append to local storage
 export function appendToValueInLocalStorage(key, data) {
@@ -28,12 +28,11 @@ export function appendToValueInLocalStorage(key, data) {
   else {
     existingVal = existingVal.substring(1, existingVal.length - 1);
   }
-  
+
   var newVal = `${existingVal},${JSON.stringify(data)}`;
 
   if (newVal.startsWith(',')) newVal = newVal.substring(1, newVal.length);
   localStorage.setItem(key, `[${newVal}]`);
-  
 }
 
 export function getParam(param = 'product') {
