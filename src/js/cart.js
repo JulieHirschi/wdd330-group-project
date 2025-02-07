@@ -1,7 +1,15 @@
 import { getLocalStorage } from './utils.mjs';
 
+var total = 0;
+
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
+  if (cartItems.length > 0) {
+    total = 0;
+    cartItems.forEach(ci => total += ci.ListPrice);
+    document.querySelector('.cart-total').textContent = `Total: $${total}`;
+    document.querySelector('.cart-total-wrapper').classList.remove('hidden');
+  }
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector('.product-list').innerHTML = htmlItems.join('');
 }
