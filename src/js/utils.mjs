@@ -56,3 +56,41 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlString.join(''));
 }
 
+export function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  callback,
+  position = 'afterbegin',
+  clear = true
+) {
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  
+  parentElement.insertAdjacentHTML(position, templateFn);
+  if(callback) {
+    callback(data);
+  }
+}
+ function loadTemplate(path) {
+  return async function() {
+    const res = await fetch(path);
+    if (res.ok) {
+      const html = await res.text();
+      return html;
+    }
+  };
+
+};
+const headerTemplateFn = loadTemplate("/partials/header.html");
+const footerTemplateFn = loadTemplate("/partials/footer.html");
+
+export function loadHeaderFooter() {
+  headerTemplateFn().then((header) => {
+    renderWithTemplate(header, qs('header'), null, null, 'beforeend', false);
+  });
+  footerTemplateFn().then((footer) => {
+    renderWithTemplate(footer, qs('footer'), null, null, 'beforeend', false);
+  });
+}
