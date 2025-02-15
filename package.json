@@ -10,7 +10,7 @@
     "lint": "eslint *.js src/**/*.js",
     "format": "prettier --ignore-path ./.gitignore --write \"./**/*.{html,json,js,ts,css,mjs}\"",
     "test": "jest",
-    "check": "npm run lint && npm run format && npm run build"
+    "check": "npm run format && npm run lint && npm run build"
   },
   "author": "Shane Thompson",
   "license": "ISC",

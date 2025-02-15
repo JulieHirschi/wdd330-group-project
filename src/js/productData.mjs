@@ -6,13 +6,15 @@ function convertToJson(res) {
   }
 }
 
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 export function getData(category = 'tents') {
-  return fetch(`../json/${category}.json`)
+  return fetch(baseURL + `products/search/${category}`)
     .then(convertToJson)
-    .then((data) => data);
+    .then((data) => data.Result);
 }
 
-export async function findProductById(id) {
-  const products = await getData();
+export async function findProductById(id, category) {
+  const products = await getData(category);
   return products.find((item) => item.Id === id);
 }

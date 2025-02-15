@@ -4,15 +4,14 @@ import { loadHeaderFooter } from './utils.mjs';
 loadHeaderFooter();
 var total = 0;
 
-
-
 function updateQuantity(id, change) {
   let cartItems = getLocalStorage('so-cart') || [];
-  let itemIndex = cartItems.findIndex(i => i.Id === id);
+  let itemIndex = cartItems.findIndex((i) => i.Id === id);
 
   if (itemIndex !== -1) {
-    cartItems[itemIndex].quantity = (cartItems[itemIndex].quantity || 1) + change;
-    
+    cartItems[itemIndex].quantity =
+      (cartItems[itemIndex].quantity || 1) + change;
+
     if (cartItems[itemIndex].quantity <= 0) {
       // Remove the item from the cart
       cartItems.splice(itemIndex, 1);
@@ -25,31 +24,39 @@ function updateQuantity(id, change) {
 }
 
 function addEventListeners() {
-  document.querySelectorAll('.increase').forEach(button => {
-    button.addEventListener('click', () => updateQuantity(button.dataset.id, 1));
+  document.querySelectorAll('.increase').forEach((button) => {
+    button.addEventListener('click', () =>
+      updateQuantity(button.dataset.id, 1)
+    );
   });
 
-  document.querySelectorAll('.decrease').forEach(button => {
-    button.addEventListener('click', () => updateQuantity(button.dataset.id, -1));
+  document.querySelectorAll('.decrease').forEach((button) => {
+    button.addEventListener('click', () =>
+      updateQuantity(button.dataset.id, -1)
+    );
   });
 }
 
 function renderCartContents() {
   let cartItems = getLocalStorage('so-cart') || [];
-  total = cartItems.reduce((sum, ci) => sum + ci.FinalPrice * (ci.quantity || 1), 0);
-  
-  document.querySelector('.cart-total').textContent = `Total: $${total}`;
-  document.querySelector('.cart-total-wrapper').classList.toggle('hidden', cartItems.length === 0);
+  total = cartItems.reduce(
+    (sum, ci) => sum + ci.FinalPrice * (ci.quantity || 1),
+    0
+  );
 
-  document.querySelector('.product-list').innerHTML = cartItems.map(cartItemTemplate).join('');
-  
+  document.querySelector('.cart-total').textContent = `Total: $${total}`;
+  document
+    .querySelector('.cart-total-wrapper')
+    .classList.toggle('hidden', cartItems.length === 0);
+
+  document.querySelector('.product-list').innerHTML = cartItems
+    .map(cartItemTemplate)
+    .join('');
+
   addEventListeners(); // Attach event listeners after rendering
 }
 
 renderCartContents();
-
-
-
 
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
@@ -68,7 +75,5 @@ function cartItemTemplate(item) {
     <p class="cart-card__price">$${item.FinalPrice * (item.quantity || 1)}</p>
   </li>`;
 }
- 
-
 
 renderCartContents();
