@@ -46,13 +46,14 @@ export function renderListWithTemplate(
   templateFn,
   parentElement,
   list,
+  category,
   position = 'afterbegin',
   clear = true
 ) {
   if (clear) {
     parentElement.innerHTML = '';
   }
-  const htmlString = list.map((templateFn));
+  const htmlString = list.map(l => templateFn(l, category));
   parentElement.insertAdjacentHTML(position, htmlString.join(''));
 }
 
@@ -67,24 +68,23 @@ export function renderWithTemplate(
   if (clear) {
     parentElement.innerHTML = '';
   }
-  
+
   parentElement.insertAdjacentHTML(position, templateFn);
-  if(callback) {
+  if (callback) {
     callback(data);
   }
 }
- function loadTemplate(path) {
-  return async function() {
+function loadTemplate(path) {
+  return async function () {
     const res = await fetch(path);
     if (res.ok) {
       const html = await res.text();
       return html;
     }
   };
-
-};
-const headerTemplateFn = loadTemplate("/partials/header.html");
-const footerTemplateFn = loadTemplate("/partials/footer.html");
+}
+const headerTemplateFn = loadTemplate('/partials/header.html');
+const footerTemplateFn = loadTemplate('/partials/footer.html');
 
 export function loadHeaderFooter() {
   headerTemplateFn().then((header) => {

@@ -1,5 +1,6 @@
 import { appendToValueInLocalStorage } from './utils.mjs';
 import { findProductById } from './productData.mjs';
+import { getParam } from './utils.mjs';
 
 export function addProductToCart(product) {
   appendToValueInLocalStorage('so-cart', product);
@@ -8,7 +9,8 @@ export function addProductToCart(product) {
 var productData = {};
 
 export default async function productDetails(productId) {
-  productData = await findProductById(productId);
+  const category = getParam('category');
+  productData = await findProductById(productId, category);
 
   renderProductDetails();
 }
@@ -32,7 +34,7 @@ function renderProductDetails() {
   header3.textContent = productData.Name;
   header2.textContent = productData.NameWithoutBrand;
 
-  productImage.src = productData.Image;
+  productImage.src = productData.Images.PrimaryLarge;
 
   priceParagraph.textContent = `$${productData.FinalPrice}`;
   colorParagraph.textContent = productData.Colors[0].ColorName;
