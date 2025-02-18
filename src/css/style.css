@@ -220,3 +220,10 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+.checkout-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.5em 2em;
+  border: 0;
+  cursor: pointer;
+}

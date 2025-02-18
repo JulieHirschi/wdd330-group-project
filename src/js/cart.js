@@ -5,20 +5,20 @@ loadHeaderFooter();
 var total = 0;
 
 function updateQuantity(id, change) {
-  let cartItems = getLocalStorage('so-cart') || [];
-  let itemIndex = cartItems.findIndex((i) => i.Id === id);
+  let cart = getLocalStorage('so-cart') || [];
+  let item = cart.find((i) => i.Id === id);
 
-  if (itemIndex !== -1) {
-    cartItems[itemIndex].quantity =
-      (cartItems[itemIndex].quantity || 1) + change;
+  if (item !== -1) {
+    cart[item].quantity =
+      (cart[item].quantity || 1) + change;
 
-    if (cartItems[itemIndex].quantity <= 0) {
+    if (cart[item].quantity <= 0) {
       // Remove the item from the cart
-      cartItems.splice(itemIndex, 1);
+      cart.splice(item, 1);
     }
 
     // Update localStorage
-    localStorage.setItem('so-cart', JSON.stringify(cartItems));
+    localStorage.setItem('so-cart', JSON.stringify(cart));
     renderCartContents(); // Re-render cart
   }
 }
@@ -61,7 +61,7 @@ renderCartContents();
 function cartItemTemplate(item) {
   return `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
-      <img src="${item.Image}" alt="${item.Name}" />
+      <img src="${item.Images.PrimaryMedium}" alt="${item.Name}" />
     </a>
     <a href="#">
       <h2 class="card__name">${item.Name}</h2>
