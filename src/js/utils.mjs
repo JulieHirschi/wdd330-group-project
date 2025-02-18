@@ -22,7 +22,6 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener('click', callback);
 }
 
-
 export function getParam(param = 'product') {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -41,7 +40,7 @@ export function renderListWithTemplate(
   if (clear) {
     parentElement.innerHTML = '';
   }
-  const htmlString = list.map(l => templateFn(l, category));
+  const htmlString = list.map((l) => templateFn(l, category));
   parentElement.insertAdjacentHTML(position, htmlString.join(''));
 }
 

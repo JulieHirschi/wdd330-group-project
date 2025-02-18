@@ -10,7 +10,6 @@ export function addProductToCart(product) {
 var productData = {};
 
 export default async function productDetails(productId) {
-  
   productData = await findProductById(productId, category);
 
   renderProductDetails();
@@ -48,7 +47,7 @@ function renderProductDetails() {
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  addProductToCart(product, category);
 }
 
 document

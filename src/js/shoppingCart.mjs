@@ -32,31 +32,24 @@ export function addToCart(data, category = 'tents') {
   else {
     cart = JSON.parse(cart);
   }
-  let existingItem = cart.find(item => item.productId === data.id && item.category === category);
-  
-//[{category: "tents", productId: "123", quantity: 1}]
+  let existingItem = cart.find(
+    (item) => item.productId === data.Id && item.category === category
+  );
 
   if (existingItem) {
     // If the item exists, update its quantity
-    existingItem.quantity += data.quantity;
+    existingItem.quantity += 1;
   } else {
     // If not, add the new item
-    cart.push({ category, productId: data.id, quantity: 1 });
+    cart.push({
+      category,
+      productId: data.Id,
+      quantity: 1,
+      finalPrice: data.FinalPrice,
+      imageMedium: data.Images.PrimaryMedium,
+      name: data.Name,
+      colorName: data.Colors[0].ColorName,
+    });
   }
   localStorage.setItem(key, JSON.stringify(cart));
-
-
-
-
-
-  // var existingVal = localStorage.getItem(key);
-  // if (existingVal == null) existingVal = '';
-  // else {
-  //   existingVal = existingVal.substring(1, existingVal.length - 1);
-  // }
-
-  // var newVal = `${existingVal},${JSON.stringify(data)}`;
-
-  // if (newVal.startsWith(',')) newVal = newVal.substring(1, newVal.length);
-  // localStorage.setItem(key, `[${newVal}]`);
 }
