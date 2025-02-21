@@ -1,5 +1,5 @@
 import { addToCart } from './shoppingCart.mjs';
-import { findProductById } from './productData.mjs';
+import { findProductById } from './externalServices.mjs';
 import { getParam } from './utils.mjs';
 const category = getParam('category');
 
