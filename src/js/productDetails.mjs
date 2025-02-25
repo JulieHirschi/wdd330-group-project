@@ -1,15 +1,15 @@
-import { appendToValueInLocalStorage } from './utils.mjs';
-import { findProductById } from './productData.mjs';
+import { addToCart } from './shoppingCart.mjs';
+import { findProductById } from './externalServices.mjs';
 import { getParam } from './utils.mjs';
+const category = getParam('category');
 
 export function addProductToCart(product) {
-  appendToValueInLocalStorage('so-cart', product);
+  addToCart(product, category);
 }
 
 var productData = {};
 
 export default async function productDetails(productId) {
-  const category = getParam('category');
   productData = await findProductById(productId, category);
 
   renderProductDetails();
@@ -47,7 +47,7 @@ function renderProductDetails() {
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  addProductToCart(product, category);
 }
 
 document
