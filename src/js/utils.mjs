@@ -76,6 +76,10 @@ const footerTemplateFn = loadTemplate('/partials/footer.html');
 export function loadHeaderFooter() {
   headerTemplateFn().then((header) => {
     renderWithTemplate(header, qs('header'), null, null, 'beforeend', false);
+  }).then(() => {
+    const cartItems = getLocalStorage('so-cart') || [];
+    const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
+    document.querySelector('.superscript').textContent = ` ${totalQuantity || ''} `;
   });
   footerTemplateFn().then((footer) => {
     renderWithTemplate(footer, qs('footer'), null, null, 'beforeend', false);
