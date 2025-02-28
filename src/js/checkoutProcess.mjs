@@ -94,8 +94,11 @@ const checkoutProcess = {
     try {
       const res = await checkout(json);
       console.log("Checkout Response:", res);
+      if (res.success) {
+        window.location.href = "../checkout/success.html";
+      }
     } catch (err) {
-      console.log("Checkout Error:", err);
+      console.log("Checkout Error:", JSON.stringify(err));
     }
   },
 };
