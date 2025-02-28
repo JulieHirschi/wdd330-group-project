@@ -101,6 +101,7 @@ button {
   padding-top: 1em;
   position: relative;
   text-align: center;
+  display: inline-block;
 }
 
 .cart svg {
@@ -108,6 +109,19 @@ button {
 }
 .cart:hover svg {
   fill: gray;
+}
+
+.superscript {
+  position: absolute;
+  top: 0; /* Adjust this to position the superscript */
+  right: 0; /* Adjust this to position the superscript */
+  font-size: 0.6em; /* Smaller size for superscript */
+  color: rgb(50, 47, 47); /* Optional, for styling */
+  background-color: lightsalmon;
+  font-weight: bold;
+  border-radius: 1em;
+  width: 1.5em;
+  margin-top: 10px;
 }
 
 /* End cart icon styles */
