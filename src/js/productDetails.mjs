@@ -1,6 +1,7 @@
 import { addToCart } from './shoppingCart.mjs';
 import { findProductById } from './externalServices.mjs';
-import { getParam } from './utils.mjs';
+import { getParam, renderSuperscript } from './utils.mjs';
+
 const category = getParam('category');
 
 export function addProductToCart(product) {
@@ -46,8 +47,8 @@ function renderProductDetails() {
 
 // add to cart button event handler
 async function addToCartHandler(e) {
-  const product = await findProductById(e.target.dataset.id);
-  addProductToCart(product, category);
+  addProductToCart(productData, category);
+  renderSuperscript(true);
 }
 
 document
