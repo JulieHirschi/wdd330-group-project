@@ -76,7 +76,7 @@ const footerTemplateFn = loadTemplate('/partials/footer.html');
 export function loadHeaderFooter() {
   headerTemplateFn().then((header) => {
     renderWithTemplate(header, qs('header'), null, null, 'beforeend', false);
-  });
+  }).then(renderSuperscript);
   footerTemplateFn().then((footer) => {
     renderWithTemplate(footer, qs('footer'), null, null, 'beforeend', false);
   });
@@ -106,4 +106,22 @@ export function alertMessage(message, scroll = true, duration = 3000) {
 export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+}
+
+export function renderSuperscript(withAnimation = false) {
+  const cartItems = getLocalStorage('so-cart') || [];
+  const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
+  const superscriptElement = document.querySelector('.superscript');
+  if (superscriptElement) {
+    superscriptElement.textContent = `${totalQuantity || ''}`;
+    if (withAnimation) {
+      superscriptElement.classList.add('added-to-cart');
+      setTimeout(() => {
+        superscriptElement.classList.remove('added-to-cart');
+      }, 500); // Match the duration of the animation
+    }
+    
+  } else {
+    console.warn('Element with class "superscript" not found in the DOM.');
+  }
 }
