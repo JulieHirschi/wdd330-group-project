@@ -1,5 +1,5 @@
-import { getLocalStorage } from "./utils.mjs";
-import { checkout } from "./externalServices.mjs";
+import { getLocalStorage } from './utils.mjs';
+import { checkout } from './externalServices.mjs';
 
 function formDataToJSON(formElement) {
   const formData = new FormData(formElement);
@@ -22,8 +22,8 @@ function packageItems(items) {
 }
 
 const checkoutProcess = {
-  key: "",
-  outputSelector: "",
+  key: '',
+  outputSelector: '',
   list: [],
   itemTotal: 0,
   shipping: 0,
@@ -40,19 +40,18 @@ const checkoutProcess = {
 
   calculateItemSummary: function () {
     const summaryElement = document.querySelector(
-      this.outputSelector + " #cartTotal"
+      this.outputSelector + ' #cartTotal'
     );
     const itemNumElement = document.querySelector(
-      this.outputSelector + " #num-items"
+      this.outputSelector + ' #num-items'
     );
 
     itemNumElement.innerText = this.list.length;
 
     // FIXED: Use the correct key `finalPrice` and ensure quantity is accounted for
-    this.itemTotal = this.list.reduce(
-      (sum, item) => sum + (item.finalPrice * (item.quantity || 1)),
-      0
-    ).toFixed(2);
+    this.itemTotal = this.list
+      .reduce((sum, item) => sum + item.finalPrice * (item.quantity || 1), 0)
+      .toFixed(2);
 
     summaryElement.innerText = `$${this.itemTotal}`;
   },
@@ -74,9 +73,15 @@ const checkoutProcess = {
   },
 
   displayOrderTotals: function () {
-    document.querySelector(this.outputSelector + " #shipping").innerText = `$${this.shipping}`;
-    document.querySelector(this.outputSelector + " #tax").innerText = `$${this.tax}`;
-    document.querySelector(this.outputSelector + " #orderTotal").innerText = `$${this.orderTotal}`;
+    document.querySelector(
+      this.outputSelector + ' #shipping'
+    ).innerText = `$${this.shipping}`;
+    document.querySelector(
+      this.outputSelector + ' #tax'
+    ).innerText = `$${this.tax}`;
+    document.querySelector(
+      this.outputSelector + ' #orderTotal'
+    ).innerText = `$${this.orderTotal}`;
   },
 
   checkout: async function (form) {
@@ -89,16 +94,16 @@ const checkoutProcess = {
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
 
-    console.log("Checkout Data:", json);
+    console.log('Checkout Data:', json);
 
     try {
       const res = await checkout(json);
-      console.log("Checkout Response:", res);
-      if (res.success) {
-        window.location.href = "../checkout/success.html";
+      console.log('Checkout Response:', res);
+      if (res.message == 'Order Placed') {
+        window.location.href = '../checkout/success.html';
       }
     } catch (err) {
-      console.log("Checkout Error:", JSON.stringify(err));
+      console.log('Checkout Error:', JSON.stringify(err));
     }
   },
 };

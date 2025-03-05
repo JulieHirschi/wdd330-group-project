@@ -268,11 +268,20 @@ form {
   /* flex-direction: column; */
   gap: 10px; /* Space between the form elements */
 }
-form input, form select, form button {
+form input,
+form select,
+form button {
   display: block;
   width: 100%; /* Optional: Makes the form elements fill the width */
   margin-bottom: 10px; /* Space between the form elements */
 }
-  .order-summary { border: 1px solid #ccc; padding: 10px; margin-top: 20px; }
-  /* button { padding: 10px; background-color: blue; color: white; border: none; cursor: pointer; } */
-  button:disabled { background-color: grey; cursor: not-allowed; }
+.order-summary {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+}
+/* button { padding: 10px; background-color: blue; color: white; border: none; cursor: pointer; } */
+button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}

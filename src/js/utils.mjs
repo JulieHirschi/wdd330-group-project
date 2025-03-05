@@ -74,24 +74,26 @@ const headerTemplateFn = loadTemplate('/partials/header.html');
 const footerTemplateFn = loadTemplate('/partials/footer.html');
 
 export function loadHeaderFooter() {
-  headerTemplateFn().then((header) => {
-    renderWithTemplate(header, qs('header'), null, null, 'beforeend', false);
-  }).then(renderSuperscript);
+  headerTemplateFn()
+    .then((header) => {
+      renderWithTemplate(header, qs('header'), null, null, 'beforeend', false);
+    })
+    .then(renderSuperscript);
   footerTemplateFn().then((footer) => {
     renderWithTemplate(footer, qs('footer'), null, null, 'beforeend', false);
   });
 }
 export function alertMessage(message, scroll = true, duration = 3000) {
-  const alert = document.createElement("div");
-  alert.classList.add("alert");
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
   alert.innerHTML = `<p>${message}</p><span>X</span >`;
 
-  alert.addEventListener("click", function (e) {
-    if (e.target.tagName == "SPAN") {
+  alert.addEventListener('click', function (e) {
+    if (e.target.tagName == 'SPAN') {
       main.removeChild(this);
     }
   });
-  const main = document.querySelector("main");
+  const main = document.querySelector('main');
   main.prepend(alert);
   // make sure they see the alert by scrolling to the top of the window
   //we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
@@ -104,13 +106,16 @@ export function alertMessage(message, scroll = true, duration = 3000) {
 }
 
 export function removeAllAlerts() {
-  const alerts = document.querySelectorAll(".alert");
-  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+  const alerts = document.querySelectorAll('.alert');
+  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
 }
 
 export function renderSuperscript(withAnimation = false) {
   const cartItems = getLocalStorage('so-cart') || [];
-  const totalQuantity = cartItems.reduce((acc, item) => acc + (item.quantity || 0), 0);
+  const totalQuantity = cartItems.reduce(
+    (acc, item) => acc + (item.quantity || 0),
+    0
+  );
   const superscriptElement = document.querySelector('.superscript');
   if (superscriptElement) {
     superscriptElement.textContent = `${totalQuantity || ''}`;
@@ -120,7 +125,6 @@ export function renderSuperscript(withAnimation = false) {
         superscriptElement.classList.remove('added-to-cart');
       }, 500); // Match the duration of the animation
     }
-    
   } else {
     console.warn('Element with class "superscript" not found in the DOM.');
   }
